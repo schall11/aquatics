@@ -354,14 +354,12 @@ var huc10 = L.esri.featureLayer({
   url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/3'
 }).addTo(map);
 
-// ref.bindPopup(function (error, featureCollection) {
-//     console.log(featureCollection);
-//     if(error || featureCollection.features.length === 0) {
-//       return false;
-//     } else {
-//       return featureCollection.features[0].properties['STATE OF UTAH LEGEND'];
-//     }
-//   });
+barriers.bindPopup(function (layer) {
+    return L.Util.template('<p><b>Barrier Location</b>', layer.feature.properties);
+  });
+antennas.bindPopup(function(layer){
+    return L.Util.template('<p><b>Antenna Location</b></p>', layer.feature.properties);
+});
 function getColor(d) {
     return d == 'Bureau of Land Management' ? '#FEE67A' :
            d == 'National Forest'  ? '#88CE66' :
@@ -489,4 +487,3 @@ map.on('overlayremove', function (eventLayer) {
     }
     });
 L.control.scale({position: "topright"}).addTo(map);
-ref.bringToFront();
