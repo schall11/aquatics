@@ -79,6 +79,7 @@ L.TimeDimension = (L.Layer || L.Class).extend({
 		//console.log("yr",yr);
 		//$('#dateDisp').text(d.substring(0,7));
 		$('#dateDisp').text(monDisp);
+        
         if (this._checkSyncedLayersReady(this._availableTimes[this._loadingTimeIndex])) {
             this._newTimeIndexLoaded();
         } else {

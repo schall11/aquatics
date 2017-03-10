@@ -1,7 +1,7 @@
 /*
  * L.TimeDimension.Layer.GeoJson:
  */
-
+var totalDistance = 0.0000;
 L.TimeDimension.Layer.GeoJson = L.TimeDimension.Layer.extend({
 
     initialize: function(layer, options) {
@@ -64,12 +64,48 @@ L.TimeDimension.Layer.GeoJson = L.TimeDimension.Layer.extend({
         // new coordinates:
         var layer = L.geoJson(null, this._baseLayer.options);
         var layers = this._baseLayer.getLayers();
+        var layerNumber1 = 0;
+        var layerNumber2 = 0;
+        var layerNumber3 = 0;
+        var addedLayers = 0;
+        // console.log(layerNumber2);
+        // console.log(addedLayers);
+        if (map.hasLayer(gpxTimeLayer)){
+             layerNumber1 = 1;
+        }
+        if (map.hasLayer(gpxTimeLayer2)){
+             layerNumber2 = 1;
+        }
+        if (map.hasLayer(gpxTimeLayer3)){
+             layerNumber3 = 1;
+        }
+        addedLayers = layerNumber1 + layerNumber2 + layerNumber3;
+
+        // console.log(map);
         for (var i = 0, l = layers.length; i < l; i++) {
+
             var feature = this._getFeatureBetweenDates(layers[i].feature, minTime, maxTime);
+            var totalDistance = 0.000;
+            if (addedLayers == 1){
+                $('#distDisp').show();
+            try{for (var z = 0, b = feature.geometry.coordinates.length; z <  b; z++){
+                if (z > 1){
+                    totalDistance += (L.latLng(feature.geometry.coordinates[z][0],feature.geometry.coordinates[z][1],feature.geometry.coordinates[z][2])).distanceTo(L.latLng(feature.geometry.coordinates[z-1][0],feature.geometry.coordinates[z-1][1],feature.geometry.coordinates[z-1][2]))
+                }
+            }}
+                catch(err){
+                    return;
+                }
+            }
+            else{
+               $('#distDisp').hide();
+            }
             if (feature) {
                 layer.addData(feature);
                 if (this._addlastPoint && feature.geometry.type == "LineString") {
                     if (feature.geometry.coordinates.length > 0) {
+
+
                         var properties = feature.properties;
                         properties.last = true;
                         layer.addData({
@@ -84,6 +120,8 @@ L.TimeDimension.Layer.GeoJson = L.TimeDimension.Layer.extend({
                 }
             }
         }
+        $('#distDisp').text((totalDistance/1609.34).toFixed(2)+ " Miles");
+
 
         if (this._currentLayer) {
             this._map.removeLayer(this._currentLayer);

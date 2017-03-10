@@ -53,6 +53,26 @@ var customControl =  L.Control.extend({
         return container;
     }
 });
+var customControl2 =  L.Control.extend({
+
+    options: {
+        position: 'bottomleft'
+    },
+
+    onAdd: function (map) {
+        var container = L.DomUtil.create('div');
+        container.id= 'distDisp'
+        container.style.backgroundColor = 'white';
+        container.style.position = 'relative';
+        container.style.width = '150px'
+        container.style.margin = '10 auto';
+        //container.style.backgroundImage = "url(http://t1.gstatic.com/images?q=tbn:ANd9GcR6FCUMW5bPn8C4PbKak2BJQQsmC-K9-mbYBeFZm1ZM2w2GRy40Ew)";
+        // container.style.backgroundSize = "30px 30px";
+        // container.style.width = '30px';
+        // container.style.height = '30px';
+        return container;
+    }
+});
 
 var timeDimensionControl = new L.Control.TimeDimension(timeDimensionControlOptions);
 map.addControl(timeDimensionControl);
@@ -296,7 +316,7 @@ var gpxLayer = omnivore.gpx('data/fish1.gpx', null, customLayer).on('ready', fun
 
 var gpxTimeLayer = L.timeDimension.layer.geoJson(gpxLayer, {
     updateTimeDimension: true,
-    addlastPoint: true,
+    addlastPoint: false,
     waitForReady: true
 });
 var gpxLayer2 = omnivore.gpx('data/fish2.gpx', null, customLayer2);
@@ -423,6 +443,7 @@ var groupedOverlays = {
 var baseLayers = getCommonBaseLayers(map); // see baselayers.js
 
 map.addControl(new customControl());
+map.addControl(new customControl2());
 L.control.groupedLayers(baseLayers, groupedOverlays).addTo(map);
 
 gpxTimeLayer.addTo(map);
@@ -487,3 +508,4 @@ map.on('overlayremove', function (eventLayer) {
     }
     });
 L.control.scale({position: "topright"}).addTo(map);
+
