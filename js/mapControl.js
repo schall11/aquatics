@@ -375,10 +375,22 @@ var huc10 = L.esri.featureLayer({
 }).addTo(map);
 
 barriers.bindPopup(function (layer) {
-    return L.Util.template('<p><b>Barrier Location</b>', layer.feature.properties);
-  });
+    if (layer.feature.properties.Pic != null && layer.feature.properties.Pic2 != null){
+
+    return L.Util.template('<p><b>Barrier Location - {BarName}</b><br><br><a href="{Pic2}" target = "_blank"><img src="{Pic2}" alt="Open Dam" style="width:304px;height:228px;"></a><br><br><a href="{Pic}" target = "_blank"><img src="{Pic}" alt="Open Dam" style="width:304px;height:228px;"></a>', layer.feature.properties);
+  }
+  else if (layer.feature.properties.Pic != null){
+        return L.Util.template('<p><b>Barrier Location - {BarName}</b><br><br><a href="{Pic}" target = "_blank"><img src="{Pic}" alt="Open Dam" style="width:304px;height:228px;"></a></p>', layer.feature.properties);
+    }
+     else if (layer.feature.properties.Pic2 != null){
+        return L.Util.template('<p><b>Barrier Location - {BarName}</b><br><br><a href="{Pic2}" target = "_blank"><img src="{Pic2}" alt="Open Dam" style="width:304px;height:228px;"></a></p>', layer.feature.properties);
+    }
+  else {
+         return L.Util.template('<p><b>Barrier Location - {BarName}</b>', layer.feature.properties);
+    }
+});
 antennas.bindPopup(function(layer){
-    return L.Util.template('<p><b>Antenna Location</b></p>', layer.feature.properties);
+    return L.Util.template('<p><b>Antenna Location </b></p>', layer.feature.properties);
 });
 function getColor(d) {
     return d == 'Bureau of Land Management' ? '#FEE67A' :
