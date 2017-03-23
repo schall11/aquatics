@@ -86,6 +86,10 @@ var deer_icon = L.icon({
     iconUrl: 'img/deer.png',
     iconSize: [38, 38]
 });
+var trout_icon = L.icon({
+    iconUrl: 'img/trout3.png',
+    iconSize: [40, 40]
+});
 // var myIcon = L.icon({
 //     iconUrl: 'leaflet/images/marker-icon.png',
 //     iconSize: [10,10],
@@ -98,10 +102,10 @@ var deer_icon = L.icon({
 var customLayer = L.geoJson(null, {
     pointToLayer: function (feature, latLng) {
         if (feature.properties.hasOwnProperty('last')) {
-            return new L.circle(latLng);
+            return new L.Marker(latLng, {icon:trout_icon});
             // return null;
         }
-        return L.circleMarker(latLng);
+        return L.Marker(latLng);
         // return null;
     },
     style: {weight:7.5}
@@ -109,7 +113,7 @@ var customLayer = L.geoJson(null, {
 var customLayer2 = L.geoJson(null, {
     pointToLayer: function (feature, latLng) {
         if (feature.properties.hasOwnProperty('last')) {
-            return new L.Marker(latLng);
+            return new L.Marker(latLng, {icon:trout_icon});
         }
         return L.circleMarker(latLng);
     },
@@ -145,7 +149,7 @@ var customLayer2 = L.geoJson(null, {
 var customLayer3 = L.geoJson(null, {
     pointToLayer: function (feature, latLng) {
         if (feature.properties.hasOwnProperty('last')) {
-            return new L.Marker(latLng);
+            return new L.Marker(latLng, {icon:trout_icon});
         }
         return L.circleMarker(latLng);
     },
@@ -195,129 +199,33 @@ var customLayer3_full = L.geoJson(null, {
 var customLayer4 = L.geoJson(null, {
     pointToLayer: function (feature, latLng) {
         if (feature.properties.hasOwnProperty('last')) {
-            return new L.Marker(latLng, {icon:deer_icon});
+            return new L.Marker(latLng, {icon:trout_icon});
         }
-        return L.circleMarker(latLng, {icon:deer_icon});
+        return L.circleMarker(latLng);
     },
-    style: function (feature) {
-        switch(feature.properties.name) {
-            case "1":
-                return {color: '#01a9b2', weight: 2, opacity: 1};
-            case "2":
-                return {color: '#b1f4fc', weight: 2, opacity: 1};
-            case "3":
-                return {color: '#EB7618', weight: 2, opacity: 1};
-            case "4":
-                return {color: '#3bbc89', weight: 2, opacity: 1};
-            case "5":
-                return {color: '#f099ca', weight: 2, opacity: 1};
-             case "6":
-                return {color: '#f73e6b', weight: 2, opacity: 1};
-            case "7":
-                return {color: '#ca8bd1', weight: 2, opacity: 1};
-            case "8":
-                return {color: '#d6343b', weight: 2, opacity: 1};
-            case "9":
-                return {color: '#1730c6', weight: 2, opacity: 1};
-            case "10":
-                return {color: '#d859e0', weight: 2, opacity: 1};
-             case "11":
-                return {color: '#ca05e3', weight: 2, opacity: 1};
-            case "12":
-                return {color: '#654b8e', weight: 2, opacity: 1};
-            case "13":
-                return {color: '#3782c1', weight: 2, opacity: 1};
-            case "14":
-                return {color: '#b38623', weight: 2, opacity: 1};
-             case "15":
-                return {color: '#FF4365', weight: 2, opacity: 1};
-             case "16":
-                return {color: '#00D9C0', weight: 2, opacity: 1};
-            case "17":
-                return {color: '#561F37', weight: 2, opacity: 1};
-            case "18":
-                return {color: '#85CB33', weight: 2, opacity: 1};
-            case "19":
-                return {color: '#FFBA49', weight: 2, opacity: 1};
-            case "20":
-                return {color: '#55DBCB', weight: 2, opacity: 1};
-             case "21":
-                return {color: '#446DF6', weight: 2, opacity: 1};
-            case "22":
-                return {color: '#2FBF71', weight: 2, opacity: 1};
-            case "23":
-                return {color: '#FFFB46', weight: 2, opacity: 1};
-        }
-    }
+    style: {color: '#ff15b9', weight:5.5}
 });
-var customLayer4_full = L.geoJson(null, {
+var customLayer5 = L.geoJson(null, {
     pointToLayer: function (feature, latLng) {
         if (feature.properties.hasOwnProperty('last')) {
-            return new L.Marker(latLng, {icon:deer_icon});
+            return new L.Marker(latLng, {icon:trout_icon});
         }
-        return L.circleMarker(latLng, {icon:deer_icon});
+        return L.circleMarker(latLng);
     },
-    style: function (feature) {
-        switch(feature.properties.name) {
-            case "1":
-                return {color: '#01a9b2', weight: 2, opacity: 1};
-            case "2":
-                return {color: '#b1f4fc', weight: 2, opacity: 1};
-            case "3":
-                return {color: '#EB7618', weight: 2, opacity: 1};
-            case "4":
-                return {color: '#3bbc89', weight: 2, opacity: 1};
-            case "5":
-                return {color: '#f099ca', weight: 2, opacity: 1};
-             case "6":
-                return {color: '#f73e6b', weight: 2, opacity: 1};
-            case "7":
-                return {color: '#ca8bd1', weight: 2, opacity: 1};
-            case "8":
-                return {color: '#d6343b', weight: 2, opacity: 1};
-            case "9":
-                return {color: '#1730c6', weight: 2, opacity: 1};
-            case "10":
-                return {color: '#d859e0', weight: 2, opacity: 1};
-             case "11":
-                return {color: '#ca05e3', weight: 2, opacity: 1};
-            case "12":
-                return {color: '#654b8e', weight: 2, opacity: 1};
-            case "13":
-                return {color: '#3782c1', weight: 2, opacity: 1};
-            case "14":
-                return {color: '#b38623', weight: 2, opacity: 1};
-             case "15":
-                return {color: '#FF4365', weight: 2, opacity: 1};
-             case "16":
-                return {color: '#00D9C0', weight: 2, opacity: 1};
-            case "17":
-                return {color: '#561F37', weight: 2, opacity: 1};
-            case "18":
-                return {color: '#85CB33', weight: 2, opacity: 1};
-            case "19":
-                return {color: '#FFBA49', weight: 2, opacity: 1};
-            case "20":
-                return {color: '#55DBCB', weight: 2, opacity: 1};
-             case "21":
-                return {color: '#446DF6', weight: 2, opacity: 1};
-            case "22":
-                return {color: '#2FBF71', weight: 2, opacity: 1};
-            case "23":
-                return {color: '#FFFB46', weight: 2, opacity: 1};
-        }
-    }
+    style: {color: '#ff5700', weight:7.5}
+
 });
 var gpxLayer = omnivore.gpx('data/fish1.gpx', null, customLayer).on('ready', function() {
     map.fitBounds(gpxLayer.getBounds(), {
         paddingBottomRight: [40, 40]
     });
 });
-
+var gpxLayerFish5 = omnivore.gpx('data/fish5.gpx', null, customLayer5);
 var gpxTimeLayer = L.timeDimension.layer.geoJson(gpxLayer, {
     updateTimeDimension: true,
-    addlastPoint: false,
-    waitForReady: true
+    addlastPoint: true,
+    waitForReady: true,
+    updateTimeDimensionMode: 'union'
 });
 var gpxLayer2 = omnivore.gpx('data/fish2.gpx', null, customLayer2);
 
@@ -328,9 +236,15 @@ var gpxTimeLayer2 = L.timeDimension.layer.geoJson(gpxLayer2, {
     duration:"P4M",
     updateTimeDimensionMode: 'union'
 });
+var gpxTimeLayerFish5 = L.timeDimension.layer.geoJson(gpxLayerFish5, {
+    updateTimeDimension: true,
+    addlastPoint: true,
+    waitForReady: true,
+    updateTimeDimensionMode: 'union'
+});
 var gpxLayer3 = omnivore.gpx('data/fish2.gpx', null, customLayer3);
 // var gpxLayer3_full = omnivore.gpx('data/Elk_WasatchCurrantCreek.gpx', null, customLayer3_full);
-// var gpxLayer4 = omnivore.gpx('data/deer3.gpx', null, customLayer4);
+var gpxLayer4 = omnivore.gpx('data/fish3.gpx', null, customLayer4);
 // var group = new L.featureGroup([gpxLayer, gpxLayer2, gpxLayer3, gpxLayer4]);
 // var gpxLayer4_full = omnivore.gpx('data/deer3.gpx', null, customLayer4).on('ready', function() {
 //     // map.fitBounds(group.getBounds(), {
@@ -343,19 +257,20 @@ var gpxLayer3 = omnivore.gpx('data/fish2.gpx', null, customLayer3);
 var gpxTimeLayer3 = L.timeDimension.layer.geoJson(gpxLayer3, {
     updateTimeDimension: true,
     addlastPoint: true,
-    waitForReady: true
+    waitForReady: true,
+    updateTimeDimensionMode: 'union'
 });
 // var gpxTimeLayer3_full = L.timeDimension.layer.geoJson(gpxLayer3_full, {
 //     updateTimeDimension: true,
 //     addlastPoint: true,
 //     waitForReady: true
 // });
-// var gpxTimeLayer4 = L.timeDimension.layer.geoJson(gpxLayer4, {
-//     updateTimeDimension: true,
-//     addlastPoint: true,
-//     waitForReady: true,
-//     duration:"P1M15D"
-// });
+var gpxTimeLayer4 = L.timeDimension.layer.geoJson(gpxLayer4, {
+    updateTimeDimension: true,
+    addlastPoint: true,
+    waitForReady: true,
+    updateTimeDimensionMode: 'union'
+});
 // var gpxTimeLayer4_full = L.timeDimension.layer.geoJson(gpxLayer4_full, {
 //     updateTimeDimension: true,
 //     addlastPoint: true,
@@ -377,18 +292,20 @@ var huc10 = L.esri.featureLayer({
 barriers.bindPopup(function (layer) {
     if (layer.feature.properties.Pic != null && layer.feature.properties.Pic2 != null){
 
-    return L.Util.template('<p><b>Barrier Location - {BarName}</b><br><br><a href="{Pic2}" target = "_blank"><img src="{Pic2}" alt="Open Dam" style="width:304px;height:228px;"></a><br><br><a href="{Pic}" target = "_blank"><img src="{Pic}" alt="Open Dam" style="width:304px;height:228px;"></a>', layer.feature.properties);
+    return L.Util.template('<b>Barrier Location - {BarName}<br><br>{Comments}</b><br><br><table style="width:100%; border-spacing: 15px;"><tr><td><a href="{Pic2}" target = "_blank"><img src="{Pic2}" alt="Open Dam" ></a></td><td><a href="{Pic}" target = "_blank"><img src="{Pic}" alt="Open Dam"></a></td></tr></table>', layer.feature.properties);
   }
   else if (layer.feature.properties.Pic != null){
-        return L.Util.template('<p><b>Barrier Location - {BarName}</b><br><br><a href="{Pic}" target = "_blank"><img src="{Pic}" alt="Open Dam" style="width:304px;height:228px;"></a></p>', layer.feature.properties);
+        return L.Util.template('<p><b>Barrier Location - {BarName}<br><br>{Comments}</b><br><br><a href="{Pic}" target = "_blank"><img src="{Pic}" alt="Open Dam" "></a></p>', layer.feature.properties);
     }
      else if (layer.feature.properties.Pic2 != null){
-        return L.Util.template('<p><b>Barrier Location - {BarName}</b><br><br><a href="{Pic2}" target = "_blank"><img src="{Pic2}" alt="Open Dam" style="width:304px;height:228px;"></a></p>', layer.feature.properties);
+        return L.Util.template('<p><b>Barrier Location - {BarName}<br><br>{Comments}</b><br><br><a href="{Pic2}" target = "_blank"><img src="{Pic2}" alt="Open Dam"></a></p>', layer.feature.properties);
     }
   else {
-         return L.Util.template('<p><b>Barrier Location - {BarName}</b>', layer.feature.properties);
+         return L.Util.template('<p><b>Barrier Location - {BarName}<br><br>{Comments}</b>', layer.feature.properties);
     }
 });
+
+
 antennas.bindPopup(function(layer){
     return L.Util.template('<p><b>Antenna Location </b></p>', layer.feature.properties);
 });
@@ -444,7 +361,9 @@ var groupedOverlays = {
     "Individuals":{
         "Fish 1": gpxTimeLayer,
         "Fish 2 (Trailing Tail)": gpxTimeLayer2,
-        "Fish 2 (Full Path)": gpxTimeLayer3
+        "Fish 2 (Full Path)": gpxTimeLayer3,
+        "Fish 3": gpxTimeLayer4,
+        "Fish 5": gpxTimeLayerFish5
     },
     "Reference Layers": {
     "Barriers": barriers,

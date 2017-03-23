@@ -67,6 +67,7 @@ L.TimeDimension.Layer.GeoJson = L.TimeDimension.Layer.extend({
         var layerNumber1 = 0;
         var layerNumber2 = 0;
         var layerNumber3 = 0;
+        var layerNumber4 = 0;
         var addedLayers = 0;
         // console.log(layerNumber2);
         // console.log(addedLayers);
@@ -79,7 +80,10 @@ L.TimeDimension.Layer.GeoJson = L.TimeDimension.Layer.extend({
         if (map.hasLayer(gpxTimeLayer3)){
              layerNumber3 = 1;
         }
-        addedLayers = layerNumber1 + layerNumber2 + layerNumber3;
+        if (map.hasLayer(gpxTimeLayer4)){
+             layerNumber4 = 1;
+        }
+        addedLayers = layerNumber1 + layerNumber2 + layerNumber3+ layerNumber4;
 
         // console.log(map);
         for (var i = 0, l = layers.length; i < l; i++) {
@@ -104,8 +108,6 @@ L.TimeDimension.Layer.GeoJson = L.TimeDimension.Layer.extend({
                 layer.addData(feature);
                 if (this._addlastPoint && feature.geometry.type == "LineString") {
                     if (feature.geometry.coordinates.length > 0) {
-
-
                         var properties = feature.properties;
                         properties.last = true;
                         layer.addData({
