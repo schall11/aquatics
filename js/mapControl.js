@@ -9,7 +9,7 @@ var map = L.map('map', {
 
 // start of TimeDimension manual instantiation
 var timeDimension = new L.TimeDimension({
-        period: "PT12H"
+        period: "PT48H"
     });
 // helper to share the timeDimension object between all layers
 map.timeDimension = timeDimension; 
@@ -56,20 +56,17 @@ var customControl =  L.Control.extend({
 var customControl2 =  L.Control.extend({
 
     options: {
-        position: 'bottomleft'
+        position: 'bottomright'
     },
 
     onAdd: function (map) {
         var container = L.DomUtil.create('div');
-        container.id= 'distDisp'
-        container.style.backgroundColor = 'white';
+        container.id = 'distancesDisplay';
         container.style.position = 'relative';
-        container.style.width = '150px'
+        container.style.width = "150px";
         container.style.margin = '10 auto';
-        //container.style.backgroundImage = "url(http://t1.gstatic.com/images?q=tbn:ANd9GcR6FCUMW5bPn8C4PbKak2BJQQsmC-K9-mbYBeFZm1ZM2w2GRy40Ew)";
-        // container.style.backgroundSize = "30px 30px";
-        // container.style.width = '30px';
-        // container.style.height = '30px';
+        container.innerHTML = '<div id = "dist1" class = "dist"></div><div id ="dist2" class = "dist"></div><div id="dist3" class = "dist"></div><div id = "dist4" class = "dist"></div><div id = "dist5" class = "dist"></div>';
+        // console.log(container);
         return container;
     }
 });
@@ -108,7 +105,7 @@ var customLayer = L.geoJson(null, {
         return L.Marker(latLng);
         // return null;
     },
-    style: {weight:7.5}
+    style: {color: '#7d00ff',weight:7.5}
 });
 var customLayer2 = L.geoJson(null, {
     pointToLayer: function (feature, latLng) {
@@ -203,7 +200,7 @@ var customLayer4 = L.geoJson(null, {
         }
         return L.circleMarker(latLng);
     },
-    style: {color: '#ff15b9', weight:5.5}
+    style: {color: '#040fff', weight:5.5}
 });
 var customLayer5 = L.geoJson(null, {
     pointToLayer: function (feature, latLng) {
@@ -221,26 +218,26 @@ var gpxLayer = omnivore.gpx('data/fish1.gpx', null, customLayer).on('ready', fun
     });
 });
 var gpxLayerFish5 = omnivore.gpx('data/fish5.gpx', null, customLayer5);
-var gpxTimeLayer = L.timeDimension.layer.geoJson(gpxLayer, {
+var gpxTimeLayerFish1 = L.timeDimension.layer.geoJson(gpxLayer, {
     updateTimeDimension: true,
     addlastPoint: true,
     waitForReady: true,
-    updateTimeDimensionMode: 'union'
+    updateTimeDimensionMode: 'extremes'
 });
 var gpxLayer2 = omnivore.gpx('data/fish2.gpx', null, customLayer2);
 
-var gpxTimeLayer2 = L.timeDimension.layer.geoJson(gpxLayer2, {
+var gpxTimeLayerFish2 = L.timeDimension.layer.geoJson(gpxLayer2, {
     updateTimeDimension: true,
     addlastPoint: false,
     waitForReady: true,
     duration:"P4M",
-    updateTimeDimensionMode: 'union'
+    updateTimeDimensionMode: 'extremes'
 });
 var gpxTimeLayerFish5 = L.timeDimension.layer.geoJson(gpxLayerFish5, {
     updateTimeDimension: true,
     addlastPoint: true,
     waitForReady: true,
-    updateTimeDimensionMode: 'union'
+    updateTimeDimensionMode: 'extremes'
 });
 var gpxLayer3 = omnivore.gpx('data/fish2.gpx', null, customLayer3);
 // var gpxLayer3_full = omnivore.gpx('data/Elk_WasatchCurrantCreek.gpx', null, customLayer3_full);
@@ -258,18 +255,18 @@ var gpxTimeLayer3 = L.timeDimension.layer.geoJson(gpxLayer3, {
     updateTimeDimension: true,
     addlastPoint: true,
     waitForReady: true,
-    updateTimeDimensionMode: 'union'
+    updateTimeDimensionMode: 'extremes'
 });
 // var gpxTimeLayer3_full = L.timeDimension.layer.geoJson(gpxLayer3_full, {
 //     updateTimeDimension: true,
 //     addlastPoint: true,
 //     waitForReady: true
 // });
-var gpxTimeLayer4 = L.timeDimension.layer.geoJson(gpxLayer4, {
+var gpxTimeLayerFish3 = L.timeDimension.layer.geoJson(gpxLayer4, {
     updateTimeDimension: true,
     addlastPoint: true,
     waitForReady: true,
-    updateTimeDimensionMode: 'union'
+    updateTimeDimensionMode: 'extremes'
 });
 // var gpxTimeLayer4_full = L.timeDimension.layer.geoJson(gpxLayer4_full, {
 //     updateTimeDimension: true,
@@ -359,10 +356,10 @@ legend2.onAdd = function (map) {
 // currentLegend.addTo(map);
 var groupedOverlays = {
     "Individuals":{
-        "Fish 1": gpxTimeLayer,
-        "Fish 2 (Trailing Tail)": gpxTimeLayer2,
+        "Fish 1": gpxTimeLayerFish1,
+        "Fish 2 (Trailing Tail)": gpxTimeLayerFish2,
         "Fish 2 (Full Path)": gpxTimeLayer3,
-        "Fish 3": gpxTimeLayer4,
+        "Fish 3": gpxTimeLayerFish3,
         "Fish 5": gpxTimeLayerFish5
     },
     "Reference Layers": {
@@ -377,7 +374,7 @@ map.addControl(new customControl());
 map.addControl(new customControl2());
 L.control.groupedLayers(baseLayers, groupedOverlays).addTo(map);
 
-gpxTimeLayer.addTo(map);
+gpxTimeLayerFish1.addTo(map);
 // var legendToggle = L.easyButton({
 //   states: [{
 //     stateName: 'legend-on',
@@ -439,4 +436,41 @@ map.on('overlayremove', function (eventLayer) {
     }
     });
 L.control.scale({position: "topright"}).addTo(map);
+ $('#dist1').show();
+gpxTimeLayerFish5.on('add', function(){
+    $('#dist4').show();
+});
+gpxTimeLayerFish5.on('remove', function(){
+    $('#dist4').hide();
+});
+gpxTimeLayerFish1.on('add', function(){
+    $('#dist1').show();
+});
+gpxTimeLayerFish1.on('remove', function(){
+    $('#dist1').hide();
+});
+gpxTimeLayer3.on('add', function(){
+    $('#dist2').show();
+});
+gpxTimeLayer3.on('remove', function(){
+    $('#dist2').hide();
+});
+gpxTimeLayerFish3.on('add', function(){
+    $('#dist3').show();
+});
+gpxTimeLayerFish3.on('remove', function(){
+    $('#dist3').hide();
+});
 
+// if (map.hasLayer(gpxTimeLayerFish1)){
+        //     $('#dist1').show();
+        // }
+        // if (map.hasLayer(gpxTimeLayer3)){
+        //      $('#dist2').show();
+        // }
+        // if (map.hasLayer(gpxTimeLayerFish3)){
+        //      $('#dist3').show();
+        // }
+        // if (map.hasLayer(gpxTimeLayerFish5)){
+        //      $('#dist4').show();
+        // }

@@ -63,6 +63,7 @@ L.TimeDimension.Layer.GeoJson = L.TimeDimension.Layer.extend({
 
         // new coordinates:
         var layer = L.geoJson(null, this._baseLayer.options);
+        // console.log(layer);
         var layers = this._baseLayer.getLayers();
         var layerNumber1 = 0;
         var layerNumber2 = 0;
@@ -71,39 +72,37 @@ L.TimeDimension.Layer.GeoJson = L.TimeDimension.Layer.extend({
         var addedLayers = 0;
         // console.log(layerNumber2);
         // console.log(addedLayers);
-        if (map.hasLayer(gpxTimeLayer)){
-             layerNumber1 = 1;
-        }
-        if (map.hasLayer(gpxTimeLayer2)){
-             layerNumber2 = 1;
-        }
-        if (map.hasLayer(gpxTimeLayer3)){
-             layerNumber3 = 1;
-        }
-        if (map.hasLayer(gpxTimeLayer4)){
-             layerNumber4 = 1;
-        }
+
         addedLayers = layerNumber1 + layerNumber2 + layerNumber3+ layerNumber4;
-
-        // console.log(map);
+        var divList = ["dist1","dist2","dist3","dist4","dist5"];
+        // console.log(layers);
         for (var i = 0, l = layers.length; i < l; i++) {
-
+            // console.log(layers);
+             // var container = L.DomUtil.create('div');
+             //    container.id = 'distancesDisplay';
+             //    container.style.backgroundColor = 'white';
+             //    container.style.position = 'relative';
+             //    container.style.width = "150px";
+             //    container.style.margin = '10 auto';
+             //    return container;
+            // console.log(layers[i].feature.properties.name);
             var feature = this._getFeatureBetweenDates(layers[i].feature, minTime, maxTime);
+            // console.log(feature);
             var totalDistance = 0.000;
-            if (addedLayers == 1){
-                $('#distDisp').show();
-            try{for (var z = 0, b = feature.geometry.coordinates.length; z <  b; z++){
-                if (z > 1){
-                    totalDistance += (L.latLng(feature.geometry.coordinates[z][0],feature.geometry.coordinates[z][1],feature.geometry.coordinates[z][2])).distanceTo(L.latLng(feature.geometry.coordinates[z-1][0],feature.geometry.coordinates[z-1][1],feature.geometry.coordinates[z-1][2]))
-                }
-            }}
-                catch(err){
-                    return;
+            // if (addedLayers == 1){
+            //     $('#distDisp').show();
+            if (feature) {
+                for (var z = 0, b = feature.geometry.coordinates.length; z < b; z++) {
+                    if (z > 1) {
+                        totalDistance += (L.latLng(feature.geometry.coordinates[z][0], feature.geometry.coordinates[z][1], feature.geometry.coordinates[z][2])).distanceTo(L.latLng(feature.geometry.coordinates[z - 1][0], feature.geometry.coordinates[z - 1][1], feature.geometry.coordinates[z - 1][2]))
+                        // console.log(layers[i].feature.properties.name, totalDistance);
+                    }
                 }
             }
-            else{
-               $('#distDisp').hide();
-            }
+            // }
+            // else{
+            //    $('#distDisp').hide();
+            // }
             if (feature) {
                 layer.addData(feature);
                 if (this._addlastPoint && feature.geometry.type == "LineString") {
@@ -121,8 +120,23 @@ L.TimeDimension.Layer.GeoJson = L.TimeDimension.Layer.extend({
                     }
                 }
             }
+
+
+            if (layers[i].feature.properties.name == "Fish X"){
+                $('#dist1').text((totalDistance/1609.34).toFixed(2)+ " Miles");
+            }
+            else if (layers[i].feature.properties.name == "Fish2"){
+                $('#dist2').text((totalDistance/1609.34).toFixed(2)+ " Miles");
+            }
+             else if (layers[i].feature.properties.name == "Fish 3"){
+                $('#dist3').text((totalDistance/1609.34).toFixed(2)+ " Miles");
+            }
+             else if (layers[i].feature.properties.name == "Fish 5"){
+                $('#dist4').text((totalDistance/1609.34).toFixed(2)+ " Miles");
+            }
+
         }
-        $('#distDisp').text((totalDistance/1609.34).toFixed(2)+ " Miles");
+
 
 
         if (this._currentLayer) {
