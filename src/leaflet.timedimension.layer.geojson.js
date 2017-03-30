@@ -134,6 +134,9 @@ L.TimeDimension.Layer.GeoJson = L.TimeDimension.Layer.extend({
              else if (layers[i].feature.properties.name == "Fish 5"){
                 $('#dist4').text((totalDistance/1609.34).toFixed(2)+ " Miles");
             }
+             else if (layers[i].feature.properties.name == "Fish 6"){
+                $('#dist5').text((totalDistance/1609.34).toFixed(2)+ " Miles");
+            }
 
         }
 

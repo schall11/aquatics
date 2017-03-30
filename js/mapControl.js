@@ -2,9 +2,9 @@ var startDate = new Date();
 startDate.setUTCHours(0, 0, 0, 0);
 
 var map = L.map('map', {
-    zoom: 12,
+    zoom: 13,
     fullscreenControl: true,
-    center: [39.3, 4]
+    center: [41.122814627344, -111.77455902099611]
 });
 
 // start of TimeDimension manual instantiation
@@ -116,33 +116,7 @@ var customLayer2 = L.geoJson(null, {
     },
     style: {color: '#FF1493', weight:3.5}
 });
-// function parseFeatures(feature){
-//     if (feature.properties.hasOwnProperty('last')) {
-//         // console.log(feature);
-//         // console.log(feature.geometry.coordinates);
-//         // console.log("fire");
-//         // coord.push(feature.geometry.coordinates[1]);
-//         // coord.push(feature.geometry.coordinates[0]);
-//         var latlng = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]);
-//         // console.log(latlng);
-//         L.esri.identifyFeatures({
-//             url: '//tlamap.trustlands.utah.gov/arcgis/rest/services/UT_SITLA_LandOwnership/MapServer'})
-//             .on(map).at(latlng).run(function(error, featureCollection){
-//            if (featureCollection.features.length > 0) {
-//           console.log(featureCollection.features[0].properties['STATE OF UTAH LEGEND']);
-//       }
-//       else {
-//        // console.log( 'No features identified.');
-//       }
-//
-//   });
-//         }
-//     // ref.identify()
-//     //       .at(feature.properties.lat)
-//     //       .run(function(error, featureCollection){
-//     //         console.log(featureCollection);
-//     //       });
-// }
+
 var customLayer3 = L.geoJson(null, {
     pointToLayer: function (feature, latLng) {
         if (feature.properties.hasOwnProperty('last')) {
@@ -212,12 +186,19 @@ var customLayer5 = L.geoJson(null, {
     style: {color: '#ff5700', weight:7.5}
 
 });
-var gpxLayer = omnivore.gpx('data/fish1.gpx', null, customLayer).on('ready', function() {
-    map.fitBounds(gpxLayer.getBounds(), {
-        paddingBottomRight: [40, 40]
-    });
+var customLayer6 = L.geoJson(null, {
+    pointToLayer: function (feature, latLng) {
+        if (feature.properties.hasOwnProperty('last')) {
+            return new L.Marker(latLng, {icon:trout_icon});
+        }
+        return L.circleMarker(latLng);
+    },
+    style: {color: '#ffbb04', weight:7.5}
+
 });
+var gpxLayer = omnivore.gpx('data/fish1.gpx', null, customLayer);
 var gpxLayerFish5 = omnivore.gpx('data/fish5.gpx', null, customLayer5);
+var gpxLayerFish6 = omnivore.gpx('data/fish6.gpx', null, customLayer6);
 var gpxTimeLayerFish1 = L.timeDimension.layer.geoJson(gpxLayer, {
     updateTimeDimension: true,
     addlastPoint: true,
@@ -234,6 +215,12 @@ var gpxTimeLayerFish2 = L.timeDimension.layer.geoJson(gpxLayer2, {
     updateTimeDimensionMode: 'extremes'
 });
 var gpxTimeLayerFish5 = L.timeDimension.layer.geoJson(gpxLayerFish5, {
+    updateTimeDimension: true,
+    addlastPoint: true,
+    waitForReady: true,
+    updateTimeDimensionMode: 'extremes'
+});
+var gpxTimeLayerFish6 = L.timeDimension.layer.geoJson(gpxLayerFish6, {
     updateTimeDimension: true,
     addlastPoint: true,
     waitForReady: true,
@@ -274,8 +261,7 @@ var gpxTimeLayerFish3 = L.timeDimension.layer.geoJson(gpxLayer4, {
 //     waitForReady: true
 // });
 var barriers = L.esri.featureLayer({
-  url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/0'
-}).addTo(map);
+  url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/0'}).addTo(map);
 var antennas= L.esri.featureLayer({
   url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/1'
 }).addTo(map);
@@ -285,6 +271,13 @@ var historic_dist= L.esri.featureLayer({
 var huc10 = L.esri.featureLayer({
   url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/3'
 }).addTo(map);
+
+// var greenIcon = L.icon({
+//     iconUrl: 'https://preview.ibb.co/j7PPdv/Pacificorp_dam_closed.jpg',
+//     iconSize:     [350, 350]
+// });
+// var pics = L.marker([41.199477, -111.858014], {icon: greenIcon}).addTo(map);
+
 
 barriers.bindPopup(function (layer) {
     if (layer.feature.properties.Pic != null && layer.feature.properties.Pic2 != null){
@@ -306,61 +299,15 @@ barriers.bindPopup(function (layer) {
 antennas.bindPopup(function(layer){
     return L.Util.template('<p><b>Antenna Location </b></p>', layer.feature.properties);
 });
-function getColor(d) {
-    return d == 'Bureau of Land Management' ? '#FEE67A' :
-           d == 'National Forest'  ? '#88CE66' :
-           d == 'Private'  ? '#FFFFFF' :
-           d == 'State Wildlife Reserve/Management Area'  ? '#C2B88E' :
-           d == 'State Trust Lands'   ? '#74B3FF' :
-           d == 'Other State'   ? '#C2B88E' :
-           d == 'Tribal Lands'   ? '#FDB56B' :
-           d == 'National Parks, Monuments & Historic Sites' ?  '#CAA6DF' :
-           d =='#FFEDA0';
-}
 
- var legend = L.control({position: 'bottomright'});
-var legend2 = L.control({position: 'bottomright'});
-legend.onAdd = function (map) {
-
-    var div = L.DomUtil.create('div', 'info legend'),
-        grades = ["Bureau of Land Management", "National Forest", 'National Parks, Monuments & Historic Sites','State Trust Lands', 'State Wildlife Reserve/Management Area', 'Tribal Lands','Private'];
-        labels = [];
-
-    // loop through our density intervals and generate a label with a colored square for each interval
-    div.innerHTML += '<div style="width: 100%;margin-bottom:10px; border-bottom: 1px solid black; text-align: center" > <span style="font-size: 15px; margin: 6px;"><b>Symbols</b> <!--Padding is optional--> </span></div>';
-    div.innerHTML +=
-            ('<i style="border:none;">'+" <img src="+ "img/deer.png" +" height='25' width='25'>")+"</i>" +' Mule Deer' + '<br>';
-    div.innerHTML +=
-            ('<i style="border:none;">'+" <img src="+ "img/elk.png" +" height='25' width='25'>")+"</i>" +' Elk' ;
-    div.innerHTML += '<div style="width: 100%;margin-bottom:10px; border-bottom: 1px solid black; text-align: center" > <span style="font-size: 15px; margin: 6px;"><b>Land Ownership</b> <!--Padding is optional--> </span></div>';
-    for (var i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + getColor(grades[i]) + '"></i> ' +
-            (grades[i] ? grades[i] + '<br>' : '+');
-    }
-
-    return div;
-};
-legend2.onAdd = function (map) {
-
-    var div = L.DomUtil.create('div', 'info legend');
-
-    div.innerHTML += '<div style="width: 100%;margin-bottom:10px; border-bottom: 1px solid black; text-align: center" > <span style="font-size: 15px; margin: 6px;"><b>Symbols</b> <!--Padding is optional--> </span></div>';
-    div.innerHTML +=
-            ('<i style="border:none;">'+" <img src="+ "img/deer.png" +" height='25' width='25'>")+"</i>" +' Mule Deer' + '<br>';
-    div.innerHTML +=
-            ('<i style="border:none;">'+" <img src="+ "img/elk.png" +" height='25' width='25'>")+"</i>" +' Elk' ;
-    return div;
-};
-// var currentLegend = legend;
-// currentLegend.addTo(map);
 var groupedOverlays = {
     "Individuals":{
         "Fish 1": gpxTimeLayerFish1,
         "Fish 2 (Trailing Tail)": gpxTimeLayerFish2,
         "Fish 2 (Full Path)": gpxTimeLayer3,
         "Fish 3": gpxTimeLayerFish3,
-        "Fish 5": gpxTimeLayerFish5
+        "Fish 5": gpxTimeLayerFish5,
+        "Fish 6": gpxTimeLayerFish6
     },
     "Reference Layers": {
     "Barriers": barriers,
@@ -374,7 +321,18 @@ map.addControl(new customControl());
 map.addControl(new customControl2());
 L.control.groupedLayers(baseLayers, groupedOverlays).addTo(map);
 
-gpxTimeLayerFish1.addTo(map);
+// gpxTimeLayerFish5.addTo(map);
+// gpxTimeLayerFish1.addTo(map);
+// gpxTimeLayer3.addTo(map);
+// gpxTimeLayerFish3.addTo(map);
+// gpxTimeLayerFish6.addTo(map);
+gpxLayerFish5.on('ready',gpxTimeLayerFish5.addTo(map));
+gpxLayer.on('ready',gpxTimeLayerFish1.addTo(map));
+gpxLayer3.on('ready',gpxTimeLayer3.addTo(map));
+gpxLayer4.on('ready',gpxTimeLayerFish3.addTo(map));
+gpxLayerFish6.on('ready',gpxTimeLayerFish6.addTo(map));
+
+
 // var legendToggle = L.easyButton({
 //   states: [{
 //     stateName: 'legend-on',
@@ -437,6 +395,12 @@ map.on('overlayremove', function (eventLayer) {
     });
 L.control.scale({position: "topright"}).addTo(map);
  $('#dist1').show();
+ $('#dist2').show();
+ $('#dist3').show();
+ $('#dist4').show();
+ $('#dist5').show();
+ $('#dateDisp').hide();
+
 gpxTimeLayerFish5.on('add', function(){
     $('#dist4').show();
 });
@@ -461,6 +425,12 @@ gpxTimeLayerFish3.on('add', function(){
 gpxTimeLayerFish3.on('remove', function(){
     $('#dist3').hide();
 });
+gpxTimeLayerFish6.on('remove', function(){
+    $('#dist5').hide();
+});
+gpxTimeLayerFish3.on('add', function(){
+    $('#dist5').show();
+});
 
 // if (map.hasLayer(gpxTimeLayerFish1)){
         //     $('#dist1').show();
@@ -474,3 +444,10 @@ gpxTimeLayerFish3.on('remove', function(){
         // if (map.hasLayer(gpxTimeLayerFish5)){
         //      $('#dist4').show();
         // }
+map.on('moveend', function(e) {
+   var bounds = map.getCenter();
+   var zoom = map.getZoom();
+   console.log(bounds, zoom);
+});
+
+$('#dist1').click(function(){window.open('https://schall11.github.io/fish1')});
