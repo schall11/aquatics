@@ -261,16 +261,17 @@ var gpxTimeLayerFish3 = L.timeDimension.layer.geoJson(gpxLayer4, {
 //     waitForReady: true
 // });
 var barriers = L.esri.featureLayer({
-  url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/0'}).addTo(map);
+  url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/0'});
 var antennas= L.esri.featureLayer({
-  url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/1'
-}).addTo(map);
+  url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/1'});
 var historic_dist= L.esri.featureLayer({
-  url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/2'
-}).addTo(map);
+  url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/2'});
 var huc10 = L.esri.featureLayer({
-  url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/3'
-}).addTo(map);
+  url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/3'});
+barriers.on('ready',barriers.addTo(map));
+antennas.on('ready',antennas.addTo(map));
+historic_dist.on('ready',historic_dist.addTo(map));
+huc10.on('ready',huc10.addTo(map));
 
 // var greenIcon = L.icon({
 //     iconUrl: 'https://preview.ibb.co/j7PPdv/Pacificorp_dam_closed.jpg',
@@ -326,6 +327,7 @@ L.control.groupedLayers(baseLayers, groupedOverlays).addTo(map);
 // gpxTimeLayer3.addTo(map);
 // gpxTimeLayerFish3.addTo(map);
 // gpxTimeLayerFish6.addTo(map);
+
 gpxLayerFish5.on('ready',gpxTimeLayerFish5.addTo(map));
 gpxLayer.on('ready',gpxTimeLayerFish1.addTo(map));
 gpxLayer3.on('ready',gpxTimeLayer3.addTo(map));
