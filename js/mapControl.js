@@ -9,14 +9,16 @@ var map = L.map('map', {
 
 // start of TimeDimension manual instantiation
 var timeDimension = new L.TimeDimension({
-        period: "PT48H"
+        timeInterval: "2011-08-12T00:00:00Z/2015-10-17T00:00:00Z",
+        period: "PT48H",
+        currentTime: 1313128800
     });
 // helper to share the timeDimension object between all layers
 map.timeDimension = timeDimension; 
 // otherwise you have to set the 'timeDimension' option on all layers.
 
 var player        = new L.TimeDimension.Player({
-    transitionTime: 25, 
+    transitionTime: 50,
     loop: false,
     startOver:true
 }, timeDimension);
@@ -27,7 +29,7 @@ var timeDimensionControlOptions = {
 	loopButton: true,
     timeDimension: timeDimension,
     position:      'bottomleft',
-    autoPlay:      true,
+    autoPlay:      false,
     minSpeed:      1,
     speedStep:     1,
     maxSpeed:      60,
@@ -200,7 +202,7 @@ var gpxLayer = omnivore.gpx('data/fish1.gpx', null, customLayer);
 var gpxLayerFish5 = omnivore.gpx('data/fish5.gpx', null, customLayer5);
 var gpxLayerFish6 = omnivore.gpx('data/fish6.gpx', null, customLayer6);
 var gpxTimeLayerFish1 = L.timeDimension.layer.geoJson(gpxLayer, {
-    updateTimeDimension: true,
+    updateTimeDimension: false,
     addlastPoint: true,
     waitForReady: true,
     updateTimeDimensionMode: 'extremes'
@@ -208,20 +210,20 @@ var gpxTimeLayerFish1 = L.timeDimension.layer.geoJson(gpxLayer, {
 var gpxLayer2 = omnivore.gpx('data/fish2.gpx', null, customLayer2);
 
 var gpxTimeLayerFish2 = L.timeDimension.layer.geoJson(gpxLayer2, {
-    updateTimeDimension: true,
+    updateTimeDimension: false,
     addlastPoint: false,
     waitForReady: true,
     duration:"P4M",
     updateTimeDimensionMode: 'extremes'
 });
 var gpxTimeLayerFish5 = L.timeDimension.layer.geoJson(gpxLayerFish5, {
-    updateTimeDimension: true,
+    updateTimeDimension: false,
     addlastPoint: true,
     waitForReady: true,
     updateTimeDimensionMode: 'extremes'
 });
 var gpxTimeLayerFish6 = L.timeDimension.layer.geoJson(gpxLayerFish6, {
-    updateTimeDimension: true,
+    updateTimeDimension: false,
     addlastPoint: true,
     waitForReady: true,
     updateTimeDimensionMode: 'extremes'
@@ -239,7 +241,7 @@ var gpxLayer4 = omnivore.gpx('data/fish3.gpx', null, customLayer4);
 // // map.fitBounds(group.getBounds());
 //
 var gpxTimeLayer3 = L.timeDimension.layer.geoJson(gpxLayer3, {
-    updateTimeDimension: true,
+    updateTimeDimension: false,
     addlastPoint: true,
     waitForReady: true,
     updateTimeDimensionMode: 'extremes'
@@ -250,7 +252,7 @@ var gpxTimeLayer3 = L.timeDimension.layer.geoJson(gpxLayer3, {
 //     waitForReady: true
 // });
 var gpxTimeLayerFish3 = L.timeDimension.layer.geoJson(gpxLayer4, {
-    updateTimeDimension: true,
+    updateTimeDimension: false,
     addlastPoint: true,
     waitForReady: true,
     updateTimeDimensionMode: 'extremes'
@@ -327,12 +329,12 @@ L.control.groupedLayers(baseLayers, groupedOverlays).addTo(map);
 // gpxTimeLayer3.addTo(map);
 // gpxTimeLayerFish3.addTo(map);
 // gpxTimeLayerFish6.addTo(map);
-
+gpxLayerFish6.on('ready',gpxTimeLayerFish6.addTo(map));
 gpxLayerFish5.on('ready',gpxTimeLayerFish5.addTo(map));
 gpxLayer.on('ready',gpxTimeLayerFish1.addTo(map));
 gpxLayer3.on('ready',gpxTimeLayer3.addTo(map));
 gpxLayer4.on('ready',gpxTimeLayerFish3.addTo(map));
-gpxLayerFish6.on('ready',gpxTimeLayerFish6.addTo(map));
+gpxLayer3.on('ready',gpxTimeLayer3.addTo(map));
 
 
 // var legendToggle = L.easyButton({

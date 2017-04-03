@@ -34,10 +34,10 @@
       <file leaf-file-name="mapControl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/mapControl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="271" column="41" lean-forward="true" selection-start-line="271" selection-start-column="41" selection-end-line="271" selection-end-column="41" />
+            <state relative-caret-position="442">
+              <caret line="338" column="0" lean-forward="true" selection-start-line="338" selection-start-column="0" selection-end-line="338" selection-end-column="0" />
               <folding>
-                <marker date="1490838095451" expanded="true" signature="10063:10096" ph="..." />
+                <marker date="1491241401230" expanded="true" signature="10169:10202" ph="..." />
               </folding>
             </state>
           </provider>
@@ -76,7 +76,7 @@
       <file leaf-file-name="baselayers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/baselayers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
+            <state relative-caret-position="425">
               <caret line="27" column="10" lean-forward="false" selection-start-line="27" selection-start-column="10" selection-end-line="27" selection-end-column="10" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
@@ -98,7 +98,7 @@
       <file leaf-file-name="leaflet.timedimension.layer.geojson.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/leaflet.timedimension.layer.geojson.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2125">
+            <state relative-caret-position="2091">
               <caret line="125" column="25" lean-forward="false" selection-start-line="125" selection-start-column="20" selection-end-line="125" selection-end-column="25" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
@@ -131,7 +131,6 @@
       <find>.text</find>
       <find>distdisp</find>
       <find>0.00</find>
-      <find>union</find>
       <find>L.TimeDimension</find>
       <find>l.esri.fea</find>
       <find>&lt;time&gt;2016</find>
@@ -144,6 +143,8 @@
       <find>&lt;time&gt;2014</find>
       <find>&lt;time&gt;2017</find>
       <find>dist5</find>
+      <find>.addTo(map)</find>
+      <find>union</find>
     </findStrings>
     <replaceStrings>
       <replace>intersect</replace>
@@ -178,8 +179,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-9" />
+    <option name="y" value="-4" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -260,7 +261,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../aquatics_migrations_fish1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files (x86)\nodejs\node.exe" />
     <property name="js.eslint.eslintPackage" value="" />
@@ -516,7 +517,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-9" y="-4" width="1936" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.109375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -571,7 +572,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1490838095451" expanded="true" signature="10063:10096" ph="..." />
+            <marker date="1491241401230" expanded="true" signature="10169:10202" ph="..." />
           </folding>
         </state>
       </provider>
@@ -638,7 +639,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1490838095451" expanded="true" signature="10063:10096" ph="..." />
+            <marker date="1491241401230" expanded="true" signature="10169:10202" ph="..." />
           </folding>
         </state>
       </provider>
@@ -705,7 +706,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1490838095451" expanded="true" signature="10063:10096" ph="..." />
+            <marker date="1491241401230" expanded="true" signature="10169:10202" ph="..." />
           </folding>
         </state>
       </provider>
@@ -772,7 +773,7 @@
         <state relative-caret-position="7293">
           <caret line="429" column="22" lean-forward="false" selection-start-line="429" selection-start-column="16" selection-end-line="429" selection-end-column="22" />
           <folding>
-            <marker date="1490838095451" expanded="true" signature="10063:10096" ph="..." />
+            <marker date="1491241401230" expanded="true" signature="10169:10202" ph="..." />
           </folding>
         </state>
       </provider>
@@ -839,7 +840,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1490838095451" expanded="true" signature="10063:10096" ph="..." />
+            <marker date="1491241401230" expanded="true" signature="10169:10202" ph="..." />
           </folding>
         </state>
       </provider>
@@ -891,7 +892,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/baselayers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
+        <state relative-caret-position="425">
           <caret line="27" column="10" lean-forward="false" selection-start-line="27" selection-start-column="10" selection-end-line="27" selection-end-column="10" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -938,7 +939,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/leaflet.timedimension.layer.geojson.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2125">
+        <state relative-caret-position="2091">
           <caret line="125" column="25" lean-forward="false" selection-start-line="125" selection-start-column="20" selection-end-line="125" selection-end-column="25" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -972,10 +973,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/mapControl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="271" column="41" lean-forward="true" selection-start-line="271" selection-start-column="41" selection-end-line="271" selection-end-column="41" />
+        <state relative-caret-position="442">
+          <caret line="338" column="0" lean-forward="true" selection-start-line="338" selection-start-column="0" selection-end-line="338" selection-end-column="0" />
           <folding>
-            <marker date="1490838095451" expanded="true" signature="10063:10096" ph="..." />
+            <marker date="1491241401230" expanded="true" signature="10169:10202" ph="..." />
           </folding>
         </state>
       </provider>
