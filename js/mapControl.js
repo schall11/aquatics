@@ -1,10 +1,15 @@
 var startDate = new Date();
 startDate.setUTCHours(0, 0, 0, 0);
-
+//
+// var map = L.map('map', {
+//     zoom: 13,
+//     fullscreenControl: true,
+//     center: [41.122814627344, -111.77455902099611]
+// });
 var map = L.map('map', {
-    zoom: 13,
+    zoom: 10,
     fullscreenControl: true,
-    center: [41.122814627344, -111.77455902099611]
+    center: [41.055537533528664, -111.62933349609376]
 });
 
 // start of TimeDimension manual instantiation
@@ -270,9 +275,11 @@ var historic_dist= L.esri.featureLayer({
   url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/2'});
 var huc10 = L.esri.featureLayer({
   url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/3'});
-barriers.on('ready',barriers.addTo(map));
-antennas.on('ready',antennas.addTo(map));
-historic_dist.on('ready',historic_dist.addTo(map));
+var state = L.esri.featureLayer({
+  url: '//services.arcgis.com/ZzrwjTRez6FJiOq4/arcgis/rest/services/MigrationLegacyInitiative_WeberRiver_Background/FeatureServer/4'}).addTo(map);
+// barriers.on('ready',barriers.addTo(map));
+// antennas.on('ready',antennas.addTo(map));
+// historic_dist.on('ready',historic_dist.addTo(map));
 huc10.on('ready',huc10.addTo(map));
 
 // var greenIcon = L.icon({
@@ -329,34 +336,38 @@ L.control.groupedLayers(baseLayers, groupedOverlays).addTo(map);
 // gpxTimeLayer3.addTo(map);
 // gpxTimeLayerFish3.addTo(map);
 // gpxTimeLayerFish6.addTo(map);
-gpxLayerFish6.on('ready',gpxTimeLayerFish6.addTo(map));
-gpxLayerFish5.on('ready',gpxTimeLayerFish5.addTo(map));
-gpxLayer.on('ready',gpxTimeLayerFish1.addTo(map));
-gpxLayer3.on('ready',gpxTimeLayer3.addTo(map));
-gpxLayer4.on('ready',gpxTimeLayerFish3.addTo(map));
-gpxLayer3.on('ready',gpxTimeLayer3.addTo(map));
+// gpxLayerFish6.on('ready',gpxTimeLayerFish6.addTo(map));
+// gpxLayerFish5.on('ready',gpxTimeLayerFish5.addTo(map));
+// gpxLayer.on('ready',gpxTimeLayerFish1.addTo(map));
+// gpxLayer3.on('ready',gpxTimeLayer3.addTo(map));
+// gpxLayer4.on('ready',gpxTimeLayerFish3.addTo(map));
+// gpxLayer3.on('ready',gpxTimeLayer3.addTo(map));
 
 
-// var legendToggle = L.easyButton({
-//   states: [{
-//     stateName: 'legend-on',
-//     icon: 'fa-list-ul',
-//     title: 'Toggle Legend Off',
-//     onClick: function(control) {
-//       map.removeControl(currentLegend);
-//       control.state('legend-off');
-//     }
-//   }, {
-//     icon: 'fa-th-list',
-//     stateName: 'legend-off',
-//     onClick: function(control) {
-//       currentLegend.addTo(map);
-//       control.state('legend-on');
-//     },
-//     title: 'Toggle Legend On'
-//   }]
-// });
-// legendToggle.addTo(map);
+var legendToggle = L.easyButton({
+  states: [{
+    stateName: 'legend-on',
+    icon: 'fa-list-ul',
+    title: 'Toggle Legend Off',
+    onClick: function(control) {
+      map.removeLayer(huc10);
+       map.removeLayer(state);
+        map.flyTo([41.122814627344, -111.77455902099611],13),{
+        duration: 10
+        };
+      control.state('legend-off');
+    }
+  }, {
+    icon: 'fa-th-list',
+    stateName: 'legend-off',
+    onClick: function(control) {
+      // currentLegend.addTo(map);
+      control.state('legend-on');
+    },
+    title: 'Toggle Legend On'
+  }]
+});
+legendToggle.addTo(map);
 map.on('overlayadd', function (eventLayer) {
     if (eventLayer.name === 'Deer 1') {
         map.flyToBounds(gpxLayer.getBounds(), {
@@ -398,11 +409,7 @@ map.on('overlayremove', function (eventLayer) {
     }
     });
 L.control.scale({position: "topright"}).addTo(map);
- $('#dist1').show();
- $('#dist2').show();
- $('#dist3').show();
- $('#dist4').show();
- $('#dist5').show();
+
  $('#dateDisp').hide();
 
 gpxTimeLayerFish5.on('add', function(){
@@ -455,3 +462,47 @@ map.on('moveend', function(e) {
 });
 
 $('#dist1').click(function(){window.open('https://schall11.github.io/fish1')});
+$('#dist2').click(function(){
+
+    map.flyTo([41.122814627344, -111.77455902099611],13),{
+        duration: 10
+}});
+// $('#dist2').click(function(){map.setZoomAround({lat: 41.122814627344, lng: -111.77455902099611},13),{
+//         reset:false,
+//         animate: true,
+//         duration: 4
+//
+// }});
+$('#dist3').click(function(){map.flyTo([40.094882122321174, -112.29125976562501],7),{
+    pan: {
+        animate: true,
+        duration: 10
+    },
+}});
+map.on('zoomend', function() {
+    barriers.addTo(map);
+    historic_dist.addTo(map);
+    gpxTimeLayerFish6.addTo(map);
+    gpxTimeLayerFish5.addTo(map);
+    gpxTimeLayerFish1.addTo(map);
+    gpxTimeLayer3.addTo(map);
+    gpxTimeLayerFish3.addTo(map);
+    gpxTimeLayer3.addTo(map);
+// map.removeLayer(huc10);
+    $('#dist1').show();
+     $('#dist2').show();
+     $('#dist3').show();
+     $('#dist4').show();
+     $('#dist5').show();
+    // gpxLayerFish6.on('ready',gpxTimeLayerFish6.addTo(map));
+    // gpxLayerFish5.on('ready',gpxTimeLayerFish5.addTo(map));
+    // gpxLayer.on('ready',gpxTimeLayerFish1.addTo(map));
+    // gpxLayer3.on('ready',gpxTimeLayer3.addTo(map));
+    // gpxLayer4.on('ready',gpxTimeLayerFish3.addTo(map));
+    // gpxLayer3.on('ready',gpxTimeLayer3.addTo(map));
+    // huc10.addTo(map);
+    // barriers.on('ready',barriers.addTo(map));
+// antennas.on('ready',antennas.addTo(map));
+// historic_dist.on('ready',historic_dist.addTo(map));
+// huc10.on('ready',huc10.addTo(map));
+});
